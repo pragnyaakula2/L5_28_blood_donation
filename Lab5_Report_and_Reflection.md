@@ -79,36 +79,7 @@ After modifying the Python source file, the program and static analysis tools we
 
 The final Flake8 violation count should be verified using `reports/after/flake8_report.txt`.
 
-## 7. GitHub Actions Implementation
-
-A GitHub Actions workflow was created at `.github/workflows/static-analysis.yml`.
-
-The workflow performs the following steps:
-
-1. Checks out the repository.
-2. Sets up Python.
-3. Installs Pylint, Bandit, and Flake8.
-4. Runs `blood_donation.py`.
-5. Runs all three static analysis tools.
-6. Uploads the before-and-after reports as a workflow artifact.
-
-The workflow completed successfully, with all displayed steps marked as successful.
-
-## 8. Version Control and Deliverables
-
-The completed work was pushed to the personal fork:
-
-https://github.com/pragnyaakula2/L5_28_blood_donation
-
-Three commits were created:
-
-1. `Fix security issues identified by Bandit`
-2. `Add before and after Pylint reports`
-3. `Add static analysis reports and GitHub Actions workflow`
-
-The repository contains the updated Python source file, the before-and-after analysis reports, and the GitHub Actions workflow.
-
-## 9. Conclusion
+## 7. Conclusion
 
 This lab demonstrated how static analysis tools can help improve the quality, security, and maintainability of Python programs. Pylint helped identify code quality issues, Bandit identified potentially unsafe coding practices, and Flake8 identified formatting violations.
 
