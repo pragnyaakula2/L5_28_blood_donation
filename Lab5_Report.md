@@ -85,47 +85,4 @@ This lab demonstrated how static analysis tools can help improve the quality, se
 
 The code was modified based on the findings, and GitHub Actions was configured to automate the checks. The successful workflow run demonstrated that the configured analysis pipeline executed successfully.
 
----
-
-# Reflection Questions and Answers
-
-## 1. What is static code analysis?
-
-Static code analysis is the process of examining source code without executing its normal functionality. It helps identify potential bugs, security vulnerabilities, poor programming practices, and formatting violations.
-
-## 2. What is the difference between Pylint, Bandit, and Flake8?
-
-Pylint focuses on code quality, programming practices, naming conventions, and documentation. Bandit focuses on common security vulnerabilities in Python code. Flake8 checks coding style and formatting, including whitespace and line length.
-
-## 3. What problems did you identify in the original program?
-
-The original program contained missing docstrings, inconsistent naming conventions, a mutable default argument, broad exception handling, a hardcoded password, assertion-based validation, insecure temporary-file creation, shell command execution, and formatting violations.
-
-## 4. Why is using a mutable default argument a problem?
-
-A mutable default argument, such as `notes=[]`, is created once when the function is defined. If the list is modified, later calls may reuse the same list. Using `None` as the default and creating a new list inside the function avoids this problem.
-
-## 5. Why should assertions not be used for input validation?
-
-Assertions can be disabled when Python runs with optimization. Explicit conditional checks and exceptions, such as `ValueError`, are more appropriate for validating user input and handling invalid values.
-
-## 6. Why is shell command execution potentially dangerous?
-
-Functions such as `os.system()` execute commands through a shell. If variable input is incorporated into a command, an attacker may be able to inject unintended commands. Avoiding shell-based execution reduces this risk.
-
-## 7. How did static analysis improve the program?
-
-Static analysis identified issues that could affect code readability, maintainability, security, and consistency. Fixing the reported problems improved the Pylint score and removed the findings reported by Bandit in the final local scan.
-
-## 8. What is the purpose of before-and-after reports?
-
-Before-reports preserve the original findings, while after-reports document the results following code changes. Comparing them provides evidence of the improvements made.
-
-## 9. What is GitHub Actions, and why was it used?
-
-GitHub Actions is an automation platform that runs predefined workflows in response to events such as pushes and pull requests. It was used to automatically execute the Python program and the three static analysis tools and upload the reports.
-
-## 10. What did you learn from this lab?
-
-I learned how to use Pylint, Bandit, and Flake8 to identify different categories of issues in Python code. I also learned how to fix common programming and security problems, maintain before-and-after reports, use Git for version control, and automate code analysis with GitHub Actions.
 
