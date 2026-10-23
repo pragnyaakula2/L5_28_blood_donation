@@ -1,0 +1,46 @@
+
+name: Static Code Analysis
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install analysis tools
+        run: python -m pip install pylint bandit flake8
+
+      - name: Run the program
+        run: python blood_donation.py
+
+      - name: Run Pylint
+        run: pylint blood_donation.py
+
+      - name: Run Bandit
+        run: bandit blood_donation.py
+
+      - name: Run Flake8
+        run: flake8 blood_donation.py
+
+      - name: Upload before-and-after reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: static-analysis-reports
+          path: reports/
+          if-no-files-found: warn
+
