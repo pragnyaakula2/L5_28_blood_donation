@@ -55,17 +55,25 @@ The initial Flake8 report showed four violations:
 
 The source code was updated to address the findings identified by the tools.
 
-| Issue | Fix applied |
-|---|---|
-| Hardcoded password | Changed password configuration to use an environment variable. |
-| Assertion-based validation | Replaced `assert` with explicit validation and `ValueError`. |
-| Unsafe temporary file creation | Replaced `tempfile.mktemp()` with `tempfile.NamedTemporaryFile()`. |
-| Shell command execution | Removed shell command construction; the SMS helper now reports the recipient count without sending messages. |
-| Mutable default argument | Changed the default from `[]` to `None` and initialized a new list inside the function. |
-| Naming violations | Converted function and argument names to snake_case. |
-| Missing docstrings | Added documentation to the module and functions. |
-| Broad exception handling | Replaced broad exception handling with explicit input validation. |
-| Formatting violations | Corrected line length, blank lines, comment spacing, and operator spacing. |
+
+## Known Issue Table
+
+| Issue | Type | Line(s) | Description | Fix Approach |
+|---|---|---|---|---|
+| Hardcoded password | Security | 4 | Password `"bloodbank-demo"` was stored directly in the source code. | Replaced the hardcoded value with the `OFFICER_PASSWORD` environment variable. |
+| Assertion used for validation | Security | 18 | `assert bloodGroup in stock` was used for blood group validation. Assertions can be disabled under optimization. | Replaced the assertion with an explicit conditional check and `ValueError`. |
+| Insecure temporary file | Security | 60 | `tempfile.mktemp()` generated a filename without securely creating the file. | Replaced it with `tempfile.NamedTemporaryFile()`. |
+| Shell command execution | Security | 65 | `os.system()` executed an SMS command through a shell, potentially exposing the program to command injection. | Removed shell command construction. The helper now reports the recipient count without sending SMS. |
+| Mutable default argument | Bug | 17 | `notes=[]` could cause multiple function calls to share the same list. | Changed the default to `None` and initialized a new list inside the function. |
+| Missing module docstring | Code quality | 1 | The Python module lacked a descriptive docstring. | Added a module-level docstring describing the program. |
+| Missing function docstrings | Code quality | 17, 27, 33, 42, 49, 53, 58, 63, 68 | Several functions lacked documentation. | Added descriptive docstrings to the functions. |
+| Invalid naming conventions | Code style | 17, 27, 33, 42, 49, 53, 58, 63 | Function names and parameters used camelCase instead of snake_case. | Renamed identifiers, for example, `registerDonor` to `register_donor`. |
+| Broad exception handling | Bug / Code quality | 45 | `except Exception` could catch unrelated errors and hide unexpected problems. | Removed broad exception handling and explicitly validated the blood group. |
+| Excessive line length (E501) | Formatting | 78 | A line exceeded Flake8's 79-character limit. | Split the long line across multiple lines. |
+| Excessive blank lines (E303) | Formatting | 58 | Too many blank lines appeared in the source code. | Removed unnecessary blank lines. |
+| Inline comment spacing (E261) | Formatting | 43 | Insufficient spacing appeared before an inline comment. | Added the required spaces before the comment. |
+| Operator whitespace (E225) | Formatting | 13 | An operator did not have the required surrounding whitespace. | Corrected the spacing around the operator. |
+
 
 ## 6. Final Analysis Results
 
